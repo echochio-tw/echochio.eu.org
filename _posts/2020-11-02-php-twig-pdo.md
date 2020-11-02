@@ -8,6 +8,8 @@ tags: php twig
 
 将 control 与 view 分开
 
-原本放在 joomla 的 Jumi 内的 crud 表格改一改 正规一下 
+原本放在 joomla 的 Jumi 内的 crud 表格改一改 正规一下
+
+<img src="https://github.com/echochio-tw/php-twig-pdo-test/raw/main/Customer_info.png">
 
 https://github.com/echochio-tw/php-twig-pdo-test
