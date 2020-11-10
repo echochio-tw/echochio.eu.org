@@ -1,6 +1,6 @@
 ---
 layout: post
-title: python regular
+title: python linux syslog find word
 date: 2020-11-10
 tags: linux syslog python regular
 ---
