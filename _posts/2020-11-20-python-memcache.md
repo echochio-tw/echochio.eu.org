@@ -82,5 +82,5 @@ memcache的一些限制：
 ```
 the maxiumum key length? (250 bytes) (一百多個中文字)
 the limits on setting expire time 30 day (30天)
-maximum data size you can store 1 megabyt (1MB)
+maximum data size you can store 1 megabyte (1MB)
 ```
