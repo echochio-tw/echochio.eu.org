@@ -1,38 +1,29 @@
 ---
 layout: post
-title: python memcache 記憶體快取
+title: python redis 記憶體快取
 date: 2020-11-20
-tags: python memcache
+tags: python redis
 ---
 
-之前都用檔案快取現在改由 記憶體快取 或 SQL
+之前都用memcache 現在改由 redis記憶體快取 或 SQL
 
-memcached 與 php 用法一樣, 記憶體與檔案比用起來快多了 (其實沒差啦)
+redis 與 php 用法一樣
 
-安裝 memcached
+安裝 redis
 ```
-yum install memcached
-```
-
-/etc/sysconfig/memcached
-```
-PORT="11211"
-USER="memcached"
-MAXCONN="1024"
-CACHESIZE="128MB" # 看需求 ....
-OPTIONS=""
-```
-```
-systemctl enable memcached
-systemctl restart memcached
+yum install http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
+yum --enablerepo=remi install redis
+systemctl enable redis
+systemctl start redis
+redis-cli info server
 ```
 
-python 改由 memcache
+python 改由 redis
 ```
 #!/usr/bin/env python3
 import pyodbc
 import requests
-import memcache # import memcache 進來
+import redis   # 导入redis 模块
 
 def telegram_send(bot_message):
     url = 'https://api.telegram.org/bot61xxxxxxx:xxxxxxxxxxxxxxxxxxxxxxxxxxxxx/sendMessage'
@@ -41,8 +32,7 @@ def telegram_send(bot_message):
     return
 
 def write_info(infoout):
-    conn.delete('gameinfo') #清除
-    conn.set('gameinfo',infoout) #重設
+    r.set('gameinfo',infoout) # 设定新值
     telegram_send(infoout)
     return
 
@@ -62,8 +52,8 @@ rows = cursor.fetchall()
 tout = ''
 pout = 0
 
-conn = memcache.Client(['127.0.0.1:11211']) #連 memcache
-tinfo = conn.get('gameinfo') # 取值 .... 取不到不會 error 只會是空值
+r = redis.Redis(host='localhost', port=6379, decode_responses=True)   #連 redis , 加 decode_responses 这个抓回来的不必再 decode
+tinfo = r.get('gameinfo') # 取值 .... 取不到不會 error 只會是空值
 if rows != []:
     for row in rows:
         pout = pout + 1
@@ -78,9 +68,3 @@ print (pout)
 
 ```
 
-memcache的一些限制：
-```
-the maxiumum key length? (250 bytes) (一百多個中文字)
-the limits on setting expire time 30 day (30天)
-maximum data size you can store 1 megabyte (1MB)
-```
