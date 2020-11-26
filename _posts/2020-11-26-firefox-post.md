@@ -1,4 +1,4 @@
-: ---
+---
 layout: post
 title: firefox post data
 date: 2020-11-26
