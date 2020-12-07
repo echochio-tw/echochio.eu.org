@@ -24,7 +24,10 @@ gcloud deployment-manager deployments update my-first-depl --config mydeploy.yam
 Cloud Monitoring
 
 
-<img src="/images/posts/google-doc/21.png">
-<img src="/images/posts/google-doc/22.png">
-<img src="/images/posts/google-doc/23.png">
-<img src="/images/posts/google-doc/24.png">
+<img src="/images/posts/google-doc/25.png">
+<img src="/images/posts/google-doc/26.png">
+<img src="/images/posts/google-doc/27.png">
+<img src="/images/posts/google-doc/28.png">
+<img src="/images/posts/google-doc/29.png">
+<img src="/images/posts/google-doc/30.png">
+<img src="/images/posts/google-doc/31.png">
