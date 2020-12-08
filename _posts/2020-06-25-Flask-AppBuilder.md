@@ -40,7 +40,7 @@ if __name__ == "__main__":
 
 建立工作目錄
 ```
-fabmanager create-app
+flask fab create-app
 ```
 
 改資料庫為 mysql 編輯 config.py 
@@ -58,7 +58,7 @@ SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:password@localhost/message'
 
 建立 admin 帳密
 ```
-fabmanager create-admin
+flask fab create-admin
 ```
 
 執行
@@ -303,3 +303,51 @@ appbuilder.add_view(MessagelistModelView,'紀錄列表',icon = 'fa-address-card-
 詳細在這裡 : 全會還真難
 
 https://flask-appbuilder.readthedocs.io/en/latest/
+
+GCP 用 App Engine
+```
+gcloud auth list
+gcloud config list project
+gcloud app create --project=$DEVSHELL_PROJECT_ID
+git clone https://github.com/GoogleCloudPlatform/python-docs-samples
+cd python-docs-samples/appengine/standard_python3/hello_world
+sudo apt-get update
+sudo apt-get install virtualenv
+virtualenv -p python3 venv
+pip install  -r requirements.txt
+pip install flask-appbuilder
+flask fab create-app
+flask fab  create-admin
+```
+
+cd 到所建的目錄 建立 main.py
+```
+from app import app as application
+
+if __name__ == "__main__":
+    application.run()
+```
+
+要有三個檔案
+```
+app.yaml  main.py  requirements.txt
+
+```
+
+建立與確認
+```
+cp ../app.yaml app.yaml
+pip freeze > requirements.txt
+ls -l
+```
+
+dev 測試
+```
+python3 main.py
+```
+push 上去
+```
+gcloud app deploy
+gcloud app browse
+```
+
