@@ -4,11 +4,12 @@ title: gcp billing bigquery python get
 date: 2020-12-11
 tags: gcp invoice
 ---
-
-
 To enable export or update the export settings, click Edit settings.
+
 From the Project list, select the project that you set up to contain your BigQuery dataset. ...
+
 From the Billing export dataset list, select the dataset that you set up to contain your exported Cloud Billing data. ...
+
 Click Save.
 
 
@@ -19,20 +20,20 @@ GCP token service-accounts 建立
 gcloud iam service-accounts keys create ~/key.json   --iam-account 3XXXXXXXX@cloudservices.gserviceaccount.com
 ```
 
-<img src="/images/posts/google-doc/a1.jpg">
+<img src="/images/posts/google-doc/a1.png">
 
 帳單要設定 BigQuery
 
-<img src="/images/posts/google-doc/a2.jpg">
+<img src="/images/posts/google-doc/a2.png">
 
 ```
 bq ls
 bq ls data
 ```
 
-<img src="/images/posts/google-doc/a3.jpg">
+<img src="/images/posts/google-doc/a3.png">
 
-<img src="/images/posts/google-doc/a4.jpg">
+<img src="/images/posts/google-doc/a4.png">
 
 ```
 import os,requests
