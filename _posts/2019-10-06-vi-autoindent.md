@@ -22,3 +22,10 @@ tags: vi
 ```
 :set paste
 ```
+
+Vim中滑鼠右鍵不能貼上
+
+Copy lines in visual mode in vim
+```
+echo 'set mouse-=a' > ~/.vimrc
+```
