@@ -129,5 +129,16 @@ smtp.login(user, password)
 smtp.sendmail(sender, receiver, msg.as_string())
 smtp.quit()
 ```
-   
+
+ CentOS nginx 還有其他方法  
+```
+yum install epel-release
+yum install python-certbot-nginx
+certbot --nginx -d ms1.test.com
+```
+/lib/systemd/system/certbot-renew.service
+```
+ExecStart 后面 
+--renew-hook "nginx -s reload"
+```
   
