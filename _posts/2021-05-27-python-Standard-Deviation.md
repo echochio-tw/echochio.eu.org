@@ -5,6 +5,27 @@ date: 2021-05-27
 tags: python Standard Deviation
 ---
 
+```
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
+import numpy as np
+da = pd.read_csv("https://raw.githubusercontent.com/joanby/estadistica-inferencial/master/datasets/nhanes_2015_2016.csv")
+print (f"median : {np.nanmedian(da.BPXSY2)}")
+print (f"mean : {np.nanmean(da.BPXSY2)}")
+print (f"Standard-Deviation : {np.std(da.BPXSY2,ddof=1)}")
+print (f"max : {np.max(da.BPXSY2)}")
+print (f"IQR : {np.subtract(*np.nanpercentile(da.BPXSY2, [75, 25]))}")
+```
+
+```
+median : 122.0
+mean : 124.78301716350497
+Standard-Deviation : 18.527011720294997
+max : 238.0
+IQR : 22.0
+```
+
 1,3,4,4,3,9 的 Standard Deviation(標準差)
 
 ```
