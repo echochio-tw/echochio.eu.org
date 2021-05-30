@@ -63,13 +63,20 @@ for j in range(1,7):
     print(f"出現 {j} 的 {int((sum([x for x in r if x == j]))/j)} 次")
 
 ```
-
 亂搞
 ```
 import numpy, random
 r = numpy.random.randint(1,7,100, numpy.int)
 for j in range(1,7):
-    print(f"出現 {j} 的 {int((sum([x for x in r if x == j]))/j)} 次")
+    print(f"出現 {j} 的 {len([x for x in r if x == j])} 次")
+```
+
+改成用 choice 比較好懂
+```
+import numpy as np
+r = np.random.choice(np.arange(1, 7), 100)
+for j in range(1,7):
+    print(f"出現 {j} 的 {len([x for x in r if x == j])} 次")
 ```
 
 用 collections的Counter
