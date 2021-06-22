@@ -27,7 +27,7 @@ credentials = ServiceAccountCredentials.from_json_keyfile_name(
     'jsonFileFromGoogle.json', scope)
 gc = gspread.authorize(credentials)
 
-spreadsheet_key = 'red_url_code_goes_here'
+spreadsheet_key = '1vo9AMK_1BMbB1-YQHysfFqLchj1iUhCzVZT6JSpW111'
 wks_name = 'Master'
 d2g.upload(df, spreadsheet_key, wks_name, credentials=credentials, row_names=True)
 ```
