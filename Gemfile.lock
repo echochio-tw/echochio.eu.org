@@ -165,7 +165,7 @@ gem "omniauth-rails_csrf_protection"
       rake (>= 0.8.7)
       thor (>= 0.20.3, < 2.0)
     rake (13.0.1)
-    rdoc (6.3.1)
+    rdoc (~> 6.3.4.1)
     responders (3.0.1)
       actionpack (>= 5.0)
       railties (>= 5.0)
@@ -206,7 +206,7 @@ DEPENDENCIES
   omniauth-openid
   rails (~> 6.0.0)
   rails-controller-testing!
-  rdoc
+  rdoc (~> 6.3.4.1)
   responders (~> 3.0)
   sqlite3 (~> 1.4)
   timecop
