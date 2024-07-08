@@ -89,3 +89,66 @@ kubectl  apply -f dashboard-user-token.yaml
 # 查看密码
 kubectl get secret admin-user -n kube-system -o jsonpath={".data.token"} | base64 -d
 ```
+
+READ-ONLY user
+```
+cat <<EOF | kubectl apply -f -
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: read-user
+  namespace: kube-system
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: read-user
+rules:
+- apiGroups: ["*"]
+  resources: ["*"]
+  verbs: ["get", "watch", "list"]        
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: read-user
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  name: read-user
+  kind: ClusterRole
+subjects:
+  - kind: ServiceAccount
+    name: read-user
+    namespace: kube-system
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: read-user
+  annotations:
+    kubernetes.io/service-account.name: "read-user"
+type: kubernetes.io/service-account-token
+EOF
+
+# 创建token
+kubectl -n kube-system create token read-user
+```
+
+READ-ONLY 創建長期token
+```
+cat > dashboard-user-token.yaml << EOF
+apiVersion: v1
+kind: Secret
+metadata:
+  name: admin-user
+  namespace: kube-system
+  annotations:
+    kubernetes.io/service-account.name: "read-user"   
+type: kubernetes.io/service-account-token  
+EOF
+
+kubectl  apply -f dashboard-user-token.yaml
+
+# 查看密码
+kubectl get secret read-user -n kube-system -o jsonpath={".data.token"} | base64 -d
+```
