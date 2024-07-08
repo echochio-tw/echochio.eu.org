@@ -2,7 +2,7 @@
 layout: post
 title: kubernetes 安装 kubernetes-dashboard 7.x
 date: 2024-07-08
-tags: ubernetes-dashboard 
+tags: kubernetes-dashboard 
 ---
 
 ```
