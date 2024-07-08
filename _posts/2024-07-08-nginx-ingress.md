@@ -20,7 +20,7 @@ kubectl expose deployment whoami --port=80 --target-port=80 -n major
 
 whoami 的 Ingress
 ```
-kubectl create ingress hello -n major --class=nginx  --rule="hello.luck.com/=whoami:80"
+kubectl create ingress hello -n major --class=nginx --rule="hello.luck.com/=whoami:80"
 ```
 
 kubectl get ingress -A
