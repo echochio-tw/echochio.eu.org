@@ -28,7 +28,7 @@ kubectl patch svc kubernetes-dashboard-kong-proxy -n kube-system -p '{"spec": {"
 kubectl get svc kubernetes-dashboard -n kube-system
 ```
 
-一般kube 可指定 IP 
+一般 kubernetes 可指定 IP 
 ```
 kubectl patch svc kubernetes-dashboard -n kubernetes-dashboard -p '{"spec": {"type": "LoadBalancer", "externalIPs":["192.168.0.144"]}}'
 ```
