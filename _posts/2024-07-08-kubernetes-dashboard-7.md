@@ -8,9 +8,6 @@ tags: kubernetes-dashboard
 ```
 helm repo add kubernetes-dashboard https://kubernetes.github.io/dashboard/
 
-# 默认参数安装
-helm upgrade --install kubernetes-dashboard kubernetes-dashboard/kubernetes-dashboard --create-namespace --namespace kube-system
-
 # 我的集群使用默认参数安装 kubernetes-dashboard-kong 出现异常 8444 端口占用
 # 使用下面的命令进行安装，在安装时关闭kong.tls功能
 helm upgrade --install kubernetes-dashboard kubernetes-dashboard/kubernetes-dashboard --namespace kube-system --set kong.admin.tls.enabled=false
