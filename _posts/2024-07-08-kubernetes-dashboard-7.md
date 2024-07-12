@@ -137,7 +137,7 @@ cat > dashboard-user-token.yaml << EOF
 apiVersion: v1
 kind: Secret
 metadata:
-  name: admin-user
+  name: read-user
   namespace: kube-system
   annotations:
     kubernetes.io/service-account.name: "read-user"   
