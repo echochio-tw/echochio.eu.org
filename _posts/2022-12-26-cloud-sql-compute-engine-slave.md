@@ -126,10 +126,12 @@ mysql> select * from performance_schema.replication_applier_status_by_worker\G;
   LAST_APPLIED_TRANSACTION_LAST_TRANSIENT_ERROR_MESSAGE:
 LAST_APPLIED_TRANSACTION_LAST_TRANSIENT_ERROR_TIMESTAMP: 0000-00-00 00:00:00.000000
 ```
+
 把timezone 匯入
 ```
 ＃　mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -uroot mysql -p
 ```
+
 設定全區 time_zone
 ```
 mysql> SET GLOBAL time_zone = 'Asia/Taipei';
