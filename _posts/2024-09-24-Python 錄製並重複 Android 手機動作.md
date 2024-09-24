@@ -4,78 +4,7 @@ title: Python 錄製並重複 Android 手機動作
 date: 2024-09-24
 tags: Android
 ---
-用 Python 錄製並重複 Android 手機動作
-
-在 Android 手機上使用 Python 來錄製並重複動作，可以透過以下方法實現：
-1. 使用 `adb` 命令`adb`（Android Debug Bridge）是一個工具，允許你與 Android 設備進行互動，包括模擬觸控、鍵盤事件、錄製螢幕等操作。
-### 2. 自動化工具 
-
-你可以使用一些基於 Python 的自動化工具來錄製和執行動作，例如：
- 
-- `uiautomator`：專門用於控制 Android 設備 UI 的工具。
- 
-- `Appium`：一個支持多平台（iOS、Android）的自動化測試框架。
- 
-- `MonkeyRunner`：Android SDK 自帶的工具，用來自動化 UI 操作。
-
-### 示例步驟： 
-1. 安裝 `adb` 和 `uiautomator`：首先確保已安裝 Android SDK 並能使用 `adb` 命令，然後可以安裝 `uiautomator` 的 Python 包：
-
-```bash
-pip install uiautomator2
-```
-
-#### 2. 連接 Android 設備： 
-確保你的設備開啟了開發者模式，並允許 USB 調試。你可以使用 `adb devices` 來確認設備是否連接。
-#### 3. 錄製動作： 
-可以通過 `adb` 命令錄製設備的螢幕操作，然後使用 Python 腳本來重複這些操作。
-錄製螢幕的指令：
-
-
-```bash
-adb shell screenrecord /sdcard/screen.mp4
-```
-
-#### 4. 使用 Python 控制設備： 
-這裡是一個使用 `uiautomator2` 的簡單範例，來自動化點擊和滑動操作：
-
-```python
-import uiautomator2 as u2
-
-# 連接設備
-d = u2.connect('設備IP或USB')
-
-# 點擊螢幕上特定坐標
-d.click(300, 500)
-
-# 滑動
-d.swipe(300, 500, 300, 1000)
-
-# 輸入文字
-d.send_keys("Hello World")
-
-# 打開應用
-d.app_start("com.example.app")
-
-# 等待特定元素出現並點擊
-d(text="Click Me").click()
-
-# 錄製的動作可以根據需求腳本化重複
-```
-
-#### 5. 重複操作： 
-
-可以將這些動作腳本化，然後根據需求調用不同的動作序列來實現重複操作。
-
-### 進一步擴展： 
-
-如果需要更複雜的錄製與重複功能，你可以考慮使用 Appium 來進行完整的測試自動化，這樣能夠記錄更加複雜的應用內行為。
-
-You: 
-
-adb shell getevent 錄製並重複 Android 手機動作
-
-------------------------------------------------------------------------------------------------------------------
+### 用 Python 錄製並重複 Android 手機動作
 
 使用 `adb shell getevent` 來錄製並重複 Android 手機的操作是一種更底層的方式，這會捕獲設備上的所有輸入事件，例如觸摸、按鍵等。這裡是具體的步驟：
 ### 1. 確認設備連接 
@@ -267,6 +196,73 @@ replay_events(record_file)
 你可以通过这些步骤实现基本的动作录制和重放。如果需要更高级的自动化操作，也可以考虑使用 Appium 等自动化工具。
 
 ----------------------------------------------------------------------------------------------------------------
+
+在 Android 手機上使用 Python 來錄製並重複動作，可以透過以下方法實現：
+1. 使用 `adb` 命令`adb`（Android Debug Bridge）是一個工具，允許你與 Android 設備進行互動，包括模擬觸控、鍵盤事件、錄製螢幕等操作。
+### 2. 自動化工具 
+
+你可以使用一些基於 Python 的自動化工具來錄製和執行動作，例如：
+ 
+- `uiautomator`：專門用於控制 Android 設備 UI 的工具。
+ 
+- `Appium`：一個支持多平台（iOS、Android）的自動化測試框架。
+ 
+- `MonkeyRunner`：Android SDK 自帶的工具，用來自動化 UI 操作。
+
+### 示例步驟： 
+1. 安裝 `adb` 和 `uiautomator`：首先確保已安裝 Android SDK 並能使用 `adb` 命令，然後可以安裝 `uiautomator` 的 Python 包：
+
+```bash
+pip install uiautomator2
+```
+
+#### 2. 連接 Android 設備： 
+確保你的設備開啟了開發者模式，並允許 USB 調試。你可以使用 `adb devices` 來確認設備是否連接。
+#### 3. 錄製動作： 
+可以通過 `adb` 命令錄製設備的螢幕操作，然後使用 Python 腳本來重複這些操作。
+錄製螢幕的指令：
+
+
+```bash
+adb shell screenrecord /sdcard/screen.mp4
+```
+
+#### 4. 使用 Python 控制設備： 
+這裡是一個使用 `uiautomator2` 的簡單範例，來自動化點擊和滑動操作：
+
+```python
+import uiautomator2 as u2
+
+# 連接設備
+d = u2.connect('設備IP或USB')
+
+# 點擊螢幕上特定坐標
+d.click(300, 500)
+
+# 滑動
+d.swipe(300, 500, 300, 1000)
+
+# 輸入文字
+d.send_keys("Hello World")
+
+# 打開應用
+d.app_start("com.example.app")
+
+# 等待特定元素出現並點擊
+d(text="Click Me").click()
+
+# 錄製的動作可以根據需求腳本化重複
+```
+
+#### 5. 重複操作： 
+
+可以將這些動作腳本化，然後根據需求調用不同的動作序列來實現重複操作。
+
+### 進一步擴展： 
+
+如果需要更複雜的錄製與重複功能，你可以考慮使用 Appium 來進行完整的測試自動化，這樣能夠記錄更加複雜的應用內行為。
+
+------------------------------------------------------------------------------------------------------------------
 
 用 MonkeyRecorder 录制Android 动作, 重放Android 动作
 
