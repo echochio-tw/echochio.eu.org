@@ -1,6 +1,9 @@
-
-You: 
-
+---
+layout: post
+title: Python 錄製並重複 Android 手機動作
+date: 2024-09-24
+tags: Android
+---
 用 Python 錄製並重複 Android 手機動作
 
 ChatGPT: 
