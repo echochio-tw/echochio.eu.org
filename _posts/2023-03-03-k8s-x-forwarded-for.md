@@ -55,6 +55,6 @@ kubectl logs -f --tail=20 $(kubectl get pods -A|grep ingress-nginx-controller|aw
 可建立一個 nginx pod 去 curl 內部 pod 測試
 ```
 kubectl run nginx --image=nginx --restart=Never
-kubectl exec --stdin --tty -n -- /bin/bash
+kubectl exec --stdin --tty nginx -- /bin/bash
 kubectl delete pod nginx
 ```
