@@ -1,9 +1,3 @@
----
-layout: post
-title: telegram bot webhoot 方式紀錄所加入的該群內所有訊息
-date: 2024-11-04
-tags: telegram bot
----
 
 You: 
 
@@ -465,3 +459,256 @@ set_webhook()
 
 ### 總結 
 此時，Nginx 會處理外部請求，並將流量轉發到 `gunicorn` 執行的 Flask 應用程式。這樣的設置可以提高穩定性與效率，使應用程式在生產環境中能穩定運行。
+
+＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+
+You: 
+
+請用 php laravel 改寫程式
+
+ChatGPT: 
+
+要將 Telegram Bot 的訊息紀錄功能改用 PHP 的 Laravel 框架實現，我們將使用以下步驟：
+
+1. 建立 Laravel 專案。
+
+2. 設定 Telegram Webhook 路由和控制器。
+
+3. 寫入程式碼以接收並記錄訊息到資料庫（MariaDB）。
+
+### 1. 建立 Laravel 專案 
+
+若尚未安裝 Laravel，可以使用 Composer 安裝：
+
+
+```bash
+composer create-project --prefer-dist laravel/laravel telegramBotApp
+```
+
+進入專案目錄：
+
+
+```bash
+cd telegramBotApp
+```
+
+### 2. 設定資料庫 
+在 `.env` 文件中設定 MariaDB 連線資訊：
+
+```plaintext
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=telegram_bot
+DB_USERNAME=your_db_user
+DB_PASSWORD=your_db_password
+```
+
+### 3. 建立資料表 Migration 
+使用 Laravel 的 Migration 建立 `messages` 表格。
+執行以下指令創建 Migration 檔案：
+
+
+```bash
+php artisan make:migration create_messages_table
+```
+在 `database/migrations/xxxx_xx_xx_xxxxxx_create_messages_table.php` 中設定表格結構：
+
+```php
+public function up()
+{
+    Schema::create('messages', function (Blueprint $table) {
+        $table->id();
+        $table->bigInteger('chat_id');
+        $table->string('user')->nullable();
+        $table->text('message')->nullable();
+        $table->timestamps();
+    });
+}
+```
+
+然後執行 Migration 建立資料表：
+
+
+```bash
+php artisan migrate
+```
+
+### 4. 建立 Webhook 路由和控制器 
+在 `routes/api.php` 中建立 Webhook 路由：
+
+```php
+use App\Http\Controllers\TelegramController;
+
+Route::post('/telegram/webhook', [TelegramController::class, 'handleWebhook']);
+```
+
+### 5. 建立 TelegramController 控制器 
+
+執行以下指令創建控制器：
+
+
+```bash
+php artisan make:controller TelegramController
+```
+在 `app/Http/Controllers/TelegramController.php` 中編寫控制器程式碼：
+
+```php
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\Message;
+
+class TelegramController extends Controller
+{
+    public function handleWebhook(Request $request)
+    {
+        $data = $request->all();
+
+        // 確認是否有訊息
+        if (isset($data['message'])) {
+            $chatId = $data['message']['chat']['id'];
+            $user = $data['message']['from']['username'] ?? 'unknown';
+            $text = $data['message']['text'] ?? '';
+
+            // 將訊息記錄到資料庫
+            Message::create([
+                'chat_id' => $chatId,
+                'user' => $user,
+                'message' => $text
+            ]);
+        }
+
+        return response()->json(['status' => 'success']);
+    }
+}
+```
+
+### 6. 建立 Message 模型 
+執行以下指令創建 `Message` 模型：
+
+```bash
+php artisan make:model Message
+```
+在 `app/Models/Message.php` 中設定可填充的屬性：
+
+```php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Message extends Model
+{
+    use HasFactory;
+
+    protected $fillable = ['chat_id', 'user', 'message'];
+}
+```
+
+### 7. 設定 Telegram Webhook 
+
+可以在 Laravel 的 Artisan Console 或直接在瀏覽器上設定 Webhook。以下是 Artisan Console 設定 Webhook 的範例程式碼：
+在 `app/Console/Commands` 中創建一個新的 Artisan 命令：
+
+```bash
+php artisan make:command SetTelegramWebhook
+```
+在 `app/Console/Commands/SetTelegramWebhook.php` 中設定 Webhook：
+
+```php
+<?php
+
+namespace App\Console\Commands;
+
+use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Http;
+
+class SetTelegramWebhook extends Command
+{
+    protected $signature = 'telegram:set-webhook';
+    protected $description = '設定 Telegram Webhook';
+
+    public function handle()
+    {
+        $token = config('services.telegram.bot_token');  // 將你的 Token 存在 .env 中
+        $webhookUrl = url('/api/telegram/webhook');
+
+        $response = Http::post("https://api.telegram.org/bot{$token}/setWebhook", [
+            'url' => $webhookUrl
+        ]);
+
+        if ($response->ok()) {
+            $this->info('Webhook 設定成功');
+        } else {
+            $this->error('Webhook 設定失敗');
+        }
+    }
+}
+```
+在 `.env` 中添加 Telegram Bot 的 Token：
+
+```plaintext
+TELEGRAM_BOT_TOKEN=your_bot_token_here
+```
+並在 `config/services.php` 中新增 Telegram 設定：
+
+```php
+'telegram' => [
+    'bot_token' => env('TELEGRAM_BOT_TOKEN'),
+],
+```
+
+接著執行命令設定 Webhook：
+
+
+```bash
+php artisan telegram:set-webhook
+```
+
+### 8. 配置 Nginx 和 Supervisor 
+
+為了在生產環境中運行 Laravel 應用程式，可以使用 Nginx 作為 Web 伺服器，並使用 Supervisor 來管理 Laravel 的 Queue 和 Schedule。
+Nginx 配置（`/etc/nginx/sites-available/telegram_bot`）：
+
+```nginx
+server {
+    listen 80;
+    server_name your_domain_or_ip;
+
+    root /path/to/your/telegramBotApp/public;
+    index index.php index.html;
+
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;  # 修改為你 PHP 版本的 sock 檔案
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        include fastcgi_params;
+    }
+
+    location ~ /\.ht {
+        deny all;
+    }
+}
+```
+
+啟用 Nginx 配置並重新啟動：
+
+
+```bash
+sudo ln -s /etc/nginx/sites-available/telegram_bot /etc/nginx/sites-enabled/
+sudo nginx -t
+sudo systemctl restart nginx
+```
+
+### 9. 測試 Webhook 
+
+確認一切設定正確後，測試 Telegram 的 Webhook。現在，當 Telegram 群組中有新訊息時，Laravel 應用程式會接收到該訊息並記錄到 MariaDB 資料庫中。
