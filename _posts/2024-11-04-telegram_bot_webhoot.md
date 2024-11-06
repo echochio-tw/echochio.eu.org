@@ -432,7 +432,7 @@ After=network.target
 User=your_user
 Group=www-data
 WorkingDirectory=/path/to/your/app
-ExecStart=/usr/local/bin/gunicorn --workers 3 --bind 127.0.0.1:8000 wsgi:app
+ExecStart=/home/flask/app/env/bin/gunicorn --log-level=debug --log-file=/var/log/uwsgi/flask.log --workers 3 --bind 127.0.0.1:8000 wsgi:app
 
 [Install]
 WantedBy=multi-user.target
