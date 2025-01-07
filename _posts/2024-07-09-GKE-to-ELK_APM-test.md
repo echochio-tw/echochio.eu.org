@@ -6,7 +6,7 @@ tags: ELK
 ---
 
 ```
-cat > elk_flask.py << EOF
+cat > python.yaml << EOF
 apiVersion: apps/v1
 kind: Deployment
 metadata:
