@@ -17,9 +17,20 @@ Click Save.
 
 GCP token service-accounts 建立
 ```
-gcloud iam service-accounts create --display-name=gitlab-ci gitlab-ci
+gcloud iam service-accounts create billing\
+    --description="Service account for BigQuery billing access" \
+    --display-name="BigQuery Billing Service Account"
 gcloud iam service-accounts list
-gcloud iam service-accounts keys create ~/key.json   --iam-account 3XXXXXXXX@cloudservices.gserviceaccount.com
+gcloud projects add-iam-policy-binding Project-ID \
+    --member="serviceAccount:billing@cloudservices.gserviceaccount.com" \
+    --role="roles/bigquery.user"
+gcloud projects add-iam-policy-binding Project-ID \
+    --member="serviceAccount:billing@cloudservices.gserviceaccount.com" \
+    --role="roles/bigquery.dataViewer"
+gcloud projects add-iam-policy-binding  Project-ID \
+    --member="serviceAccount:billing@cloudservices.gserviceaccount.com" \
+    --role="roles/bigquery.jobUser"
+gcloud iam service-accounts keys create ~/key.json   --iam-account billing@cloudservices.gserviceaccount.com
 ```
 
 <img src="/images/posts/google-doc/a1.png">
