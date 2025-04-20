@@ -59,10 +59,8 @@ with sync_playwright() as p:
     browser = p.chromium.launch(headless=False)
     ctx = browser.new_context()
     page = ctx.new_page()
-```
 
 # 监听所有请求，打印出 method、url 和 body
-```
 def log_every_request(request):
     body = request.post_data or "<空>"
     print(f"{request.method} {request.url}\n▶ Body: {body}\n")
