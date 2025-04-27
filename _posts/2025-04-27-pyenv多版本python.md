@@ -50,7 +50,6 @@ pyenv virtualenv 3.11.12 env-3.11
 啟用虛擬環境
 ```
 cd ~/FramePack
-pyenv activate env-3.11
 pyenv local env-3.11
 ```
 如 cd ~/FramePack 就會
