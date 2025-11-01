@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自適應拼音工具</title>
+    
+    <style>
+        /* 基本樣式重置 */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+        /* 讓輸入和輸出區域佔滿手機螢幕寬度 */
+        textarea {
+            width: 100%; 
+            box-sizing: border-box; /* 確保 padding 不會增加總寬度 */
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            resize: vertical; /* 允許垂直拖動 */
+        }
+
+        /* 按鈕容器使用 Flexbox 讓按鈕可以並排或自動換行 */
+        .button-container {
+            display: flex;
+            gap: 10px; /* 按鈕之間的間距 */
+            margin-top: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap; /* 允許按鈕在小螢幕上換行 */
+        }
+
+        /* 按鈕基本樣式 */
+        .button-container input[type="button"],
+        .button-container button {
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+            flex-grow: 1; /* 讓按鈕盡可能佔據空間 */
+            min-width: 100px; /* 確保按鈕不會太小 */
+        }
+
+        /* 標題與標籤 */
+        h1 {
+            color: #333;
+            font-size: 1.5em; /* 在小螢幕上調整字體大小 */
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        /* 媒體查詢：針對極小的螢幕，可以進一步調整 */
+        @media (max-width: 400px) {
+            body {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>pyshengdiao.js 函式測試</h1>
+
+    <script src="pyshengdiao.js"></script>
+
+    <form name="form1">
+        
+        <label for="input_text">輸入漢字 (name="code"):</label>
+        <textarea name="code" id="input_text" rows="5" placeholder="請輸入中文...">測試中文</textarea>
+        
+        <div class="button-container">
+            <input 
+                type="button" 
+                value="執行 trans() 並輸出" 
+                onclick="document.form1.code2.value = trans()"> 
+            
+            <input 
+                type="button" 
+                value="清除" 
+                onclick="document.form1.code.value = ''; document.form1.code2.value = ''">
+        </div>
+
+        <label for="output_text">輸出結果 (name="code2"):</label>
+        <textarea name="code2" id="output_text" rows="5" readonly></textarea>
+        
+    </form>
+    
+    <hr>
+    
+    <div class="button-container">
+        <button onclick="console.log(trans())">在 Console 中顯示結果</button>
+        <button onclick="alert(trans())">以彈出視窗顯示結果</button>
+    </div>
+
+</body>
+</html>
