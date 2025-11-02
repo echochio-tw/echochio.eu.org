@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>自適應拼音工具</title>
+    <title>漢字轉拼音</title>
     
     <style>
         /* 基本樣式重置 */
@@ -68,13 +68,13 @@
 </head>
 <body>
 
-    <h1>pyshengdiao.js 函式測試</h1>
+    <h1>漢字轉拼音</h1>
 
     <script src="pyshengdiao.js"></script>
 
     <form name="form1">
         
-        <label for="input_text">輸入漢字 (name="code"):</label>
+        <label for="input_text">輸入漢字:</label>
         <textarea name="code" id="input_text" rows="5" placeholder="請輸入中文...">測試中文</textarea>
         
         <div class="button-container">
@@ -89,7 +89,7 @@
                 onclick="document.form1.code.value = ''; document.form1.code2.value = ''">
         </div>
 
-        <label for="output_text">輸出結果 (name="code2"):</label>
+        <label for="output_text">輸出結果:</label>
         <textarea name="code2" id="output_text" rows="5" readonly></textarea>
         
     </form>
