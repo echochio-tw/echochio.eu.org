@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>線上拼音發音</title>
+    <title>國語拼音注音發音輔助表（Google語音引擎優化版）</title>
     <style>
-        /* --- 樣式保持不變 --- */
+        /* --- 頁面基本樣式 --- */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -44,6 +44,7 @@
             padding-left: 5px;
         }
 
+        /* --- 卡片網格佈局 --- */
         .card-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
@@ -51,6 +52,7 @@
             padding-top: 5px;
         }
 
+        /* --- 卡片樣式及互動效果 --- */
         .pinyin-card-click {
             background-color: #fff;
             border-radius: 8px;
@@ -70,6 +72,7 @@
         .pinyin-card-click:hover { background-color: #ffe0b2; }
         .pinyin-card-click:active { transform: translateY(1px); box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); }
 
+        /* --- 拼音文字樣式 --- */
         .pinyin-text-click {
             font-size: 28px;
             font-weight: bold;
@@ -83,7 +86,7 @@
              line-height: 1.2;
         }
         
-        /* 確保注音符號字體清晰 */
+        /* --- 注音文字樣式 --- */
         .bopomofo-text {
             font-family: "Noto Sans TC", "Bopomofo", sans-serif;
             font-size: 16px;
@@ -105,12 +108,12 @@
 <body>
 
     <div class="header">
-        線上拼音發音
+        🔊 國語拼音注音發音輔助表 🔊
     </div>
 
     <div class="container">
         
-        <div class="section-title">🔊 聲母 (Shēngmǔ)</div>
+        <div class="section-title">🗣️ 聲母 (Shēngmǔ)</div>
         <div class="card-grid">
             <div class="pinyin-card-click" onclick="speakClick('ㄅ')"><span class="pinyin-text-click">b</span><span class="bopomofo-text">ㄅ</span><span class="speaker-icon">🔊</span></div>
             <div class="pinyin-card-click" onclick="speakClick('ㄆ')"><span class="pinyin-text-click">p</span><span class="bopomofo-text">ㄆ</span><span class="speaker-icon">🔊</span></div>
@@ -155,9 +158,7 @@
             <div class="pinyin-card-click" onclick="speakClick('安')"><span class="pinyin-text-small-click">an</span><span class="bopomofo-text">ㄢ</span><span class="speaker-icon">🔊</span></div>
             <div class="pinyin-card-click" onclick="speakClick('恩')"><span class="pinyin-text-small-click">en</span><span class="bopomofo-text">ㄣ</span><span class="speaker-icon">🔊</span></div>
             <div class="pinyin-card-click" onclick="speakClick('昂')"><span class="pinyin-text-small-click">ang</span><span class="bopomofo-text">ㄤ</span><span class="speaker-icon">🔊</span></div>
-            <div class="pinyin-card-click" onclick="speakClick('eng')"><span class="pinyin-text-small-click">eng</span><span class="bopomofo-text">ㄥ</span><span class="speaker-icon">🔊</span></div> 
-
-            <div class="pinyin-card-click" onclick="speakClick('呀')"><span class="pinyin-text-small-click">ia</span><span class="bopomofo-text">ㄧㄚ</span><span class="speaker-icon">🔊</span></div>
+            <div class="pinyin-card-click" onclick="speakClick('翁')"><span class="pinyin-text-small-click">eng</span><span class="bopomofo-text">ㄥ</span><span class="speaker-icon">🔊</span></div> <div class="pinyin-card-click" onclick="speakClick('呀')"><span class="pinyin-text-small-click">ia</span><span class="bopomofo-text">ㄧㄚ</span><span class="speaker-icon">🔊</span></div>
             <div class="pinyin-card-click" onclick="speakClick('耶')"><span class="pinyin-text-small-click">ie</span><span class="bopomofo-text">ㄧㄝ</span><span class="speaker-icon">🔊</span></div>
             <div class="pinyin-card-click" onclick="speakClick('優')"><span class="pinyin-text-small-click">iou (iu)</span><span class="bopomofo-text">ㄧㄡ</span><span class="speaker-icon">🔊</span></div>
             <div class="pinyin-card-click" onclick="speakClick('腰')"><span class="pinyin-text-small-click">iao</span><span class="bopomofo-text">ㄧㄠ</span><span class="speaker-icon">🔊</span></div>
@@ -180,7 +181,7 @@
             <div class="pinyin-card-click" onclick="speakClick('用')"><span class="pinyin-text-small-click">iong</span><span class="bopomofo-text">ㄩㄥ</span><span class="speaker-icon">🔊</span></div>
         </div>
 
-        <div class="section-title">🎶 整體認讀音節 (特殊音節)</div>
+        <div class="section-title">✨ 整體認讀音節 (特殊音節)</div>
         <div class="card-grid">
             <div class="pinyin-card-click" onclick="speakClick('織')"><span class="pinyin-text-small-click">zhi</span><span class="bopomofo-text">ㄓ</span><span class="speaker-icon">🔊</span></div>
             <div class="pinyin-card-click" onclick="speakClick('吃')"><span class="pinyin-text-small-click">chi</span><span class="bopomofo-text">ㄔ</span><span class="speaker-icon">🔊</span></div>
@@ -210,12 +211,12 @@
         const synth = window.speechSynthesis;
         
         /**
-         * 讀出指定的文字 (漢字或注音)，穩定發音
+         * 讀出指定的文字 (漢字或注音)，以獲得穩定的語音效果
          * @param {string} textToSpeak 要發音的文字 (單個漢字、注音符號或拼音字串)
          */
         function speakCore(textToSpeak) {
             if (!synth) {
-                alert('抱歉，您的瀏覽器不支援 Web Speech API。');
+                alert('抱歉，您的瀏覽器不支援 Web Speech API。請使用 Google Chrome 瀏覽器以獲得「谷歌姐」發音的最佳體驗。');
                 return;
             }
 
@@ -223,28 +224,24 @@
 
             const utterance = new SpeechSynthesisUtterance(textToSpeak);
             
-            // 設定語言為中文普通話/國語
+            // 關鍵設定：設定語言為中文普通話 (zh-CN)，
+            // 在 Chrome 瀏覽器下會自動調用 Google TTS 語音引擎，達到「谷歌姐」發音效果。
             utterance.lang = 'zh-CN'; 
-            utterance.rate = 0.8; // 稍慢一些
+            utterance.rate = 0.8; // 稍微放慢語速，使發音更清晰
 
             synth.speak(utterance);
         }
 
         // 點擊事件調用核心發音
         function speakClick(textToSpeak) {
-             // 處理 eng 的特殊發音 (用帶聲調拼音最準確)
-            if (textToSpeak === 'eng') {
-                 speakCore('ēng'); 
-            } else {
-                 speakCore(textToSpeak);
-            }
+            speakCore(textToSpeak);
         }
 
         // 頁面載入後確認語音服務狀態
         window.onload = function() {
              if (synth && synth.onvoiceschanged !== undefined) {
                 synth.onvoiceschanged = function() {
-                    console.log("語音服務已載入。發音已準備就緒 (使用注音符號優先輔助)。");
+                    console.log("語音服務已載入。發音已準備就緒。");
                 };
             }
         };
