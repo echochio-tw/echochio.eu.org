@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>漢語拼音與注音對照表 - 點擊發音 (強制陰平)</title>
+    <title>漢語拼音與注音對照表 - 注音優先發音版</title>
     <style>
         /* --- 樣式保持不變 --- */
         body {
@@ -64,7 +64,7 @@
             justify-content: center;
             user-select: none;
             min-height: 70px;
-            position: relative; /* 定位喇叭圖標 */
+            position: relative;
         }
 
         .pinyin-card-click:hover { background-color: #ffe0b2; }
@@ -83,6 +83,7 @@
              line-height: 1.2;
         }
         
+        /* 確保注音符號字體清晰 */
         .bopomofo-text {
             font-family: "Noto Sans TC", "Bopomofo", sans-serif;
             font-size: 16px;
@@ -104,111 +105,113 @@
 <body>
 
     <div class="header">
-        漢語拼音與注音對照表 - 點擊發音 (強制陰平)
+        漢語拼音與注音對照表 - 注音優先發音版
     </div>
 
     <div class="container">
         
-        <div class="section-title">🔊 聲母 (Shēngmǔ) - 發音為陰平 (第一聲)</div>
+        <div class="section-title">🔊 聲母 (Shēngmǔ) - 點擊發音注音符號</div>
         <div class="card-grid">
-            <div class="pinyin-card-click" onclick="speakClick('bō')"><span class="pinyin-text-click">b</span><span class="bopomofo-text">ㄅ</span><span class="speaker-icon">🔊</span></div>
-            <div class="pinyin-card-click" onclick="speakClick('pō')"><span class="pinyin-text-click">p</span><span class="bopomofo-text">ㄆ</span><span class="speaker-icon">🔊</span></div>
-            <div class="pinyin-card-click" onclick="speakClick('mō')"><span class="pinyin-text-click">m</span><span class="bopomofo-text">ㄇ</span><span class="speaker-icon">🔊</span></div>
-            <div class="pinyin-card-click" onclick="speakClick('fō')"><span class="pinyin-text-click">f</span><span class="bopomofo-text">ㄈ</span><span class="speaker-icon">🔊</span></div>
-            <div class="pinyin-card-click" onclick="speakClick('dē')"><span class="pinyin-text-click">d</span><span class="bopomofo-text">ㄉ</span><span class="speaker-icon">🔊</span></div>
-            <div class="pinyin-card-click" onclick="speakClick('tē')"><span class="pinyin-text-click">t</span><span class="bopomofo-text">ㄊ</span><span class="speaker-icon">🔊</span></div>
-            <div class="pinyin-card-click" onclick="speakClick('nē')"><span class="pinyin-text-click">n</span><span class="bopomofo-text">ㄋ</span><span class="speaker-icon">🔊</span></div>
-            <div class="pinyin-card-click" onclick="speakClick('lē')"><span class="pinyin-text-click">l</span><span class="bopomofo-text">ㄌ</span><span class="speaker-icon">🔊</span></div>
+            <div class="pinyin-card-click" onclick="speakClick('ㄅ')"><span class="pinyin-text-click">b</span><span class="bopomofo-text">ㄅ</span><span class="speaker-icon">🔊</span></div>
+            <div class="pinyin-card-click" onclick="speakClick('ㄆ')"><span class="pinyin-text-click">p</span><span class="bopomofo-text">ㄆ</span><span class="speaker-icon">🔊</span></div>
+            <div class="pinyin-card-click" onclick="speakClick('ㄇ')"><span class="pinyin-text-click">m</span><span class="bopomofo-text">ㄇ</span><span class="speaker-icon">🔊</span></div>
+            <div class="pinyin-card-click" onclick="speakClick('ㄈ')"><span class="pinyin-text-click">f</span><span class="bopomofo-text">ㄈ</span><span class="speaker-icon">🔊</span></div>
+            <div class="pinyin-card-click" onclick="speakClick('ㄉ')"><span class="pinyin-text-click">d</span><span class="bopomofo-text">ㄉ</span><span class="speaker-icon">🔊</span></div>
+            <div class="pinyin-card-click" onclick="speakClick('ㄊ')"><span class="pinyin-text-click">t</span><span class="bopomofo-text">ㄊ</span><span class="speaker-icon">🔊</span></div>
+            <div class="pinyin-card-click" onclick="speakClick('ㄋ')"><span class="pinyin-text-click">n</span><span class="bopomofo-text">ㄋ</span><span class="speaker-icon">🔊</span></div>
+            <div class="pinyin-card-click" onclick="speakClick('ㄌ')"><span class="pinyin-text-click">l</span><span class="bopomofo-text">ㄌ</span><span class="speaker-icon">🔊</span></div>
 
-            <div class="pinyin-card-click" onclick="speakClick('gē')"><span class="pinyin-text-click">g</span><span class="bopomofo-text">ㄍ</span><span class="speaker-icon">🔊</span></div>
-            <div class="pinyin-card-click" onclick="speakClick('kē')"><span class="pinyin-text-click">k</span><span class="bopomofo-text">ㄎ</span><span class="speaker-icon">🔊</span></div>
-            <div class="pinyin-card-click" onclick="speakClick('hē')"><span class="pinyin-text-click">h</span><span class="bopomofo-text">ㄏ</span><span class="speaker-icon">🔊</span></div>
-            <div class="pinyin-card-click" onclick="speakClick('jī')"><span class="pinyin-text-click">j</span><span class="bopomofo-text">ㄐ</span><span class="speaker-icon">🔊</span></div>
-            <div class="pinyin-card-click" onclick="speakClick('qī')"><span class="pinyin-text-click">q</span><span class="bopomofo-text">ㄑ</span><span class="speaker-icon">🔊</span></div>
-            <div class="pinyin-card-click" onclick="speakClick('xī')"><span class="pinyin-text-click">x</span><span class="bopomofo-text">ㄒ</span><span class="speaker-icon">🔊</span></div>
-            <div class="pinyin-card-click" onclick="speakClick('zhī')"><span class="pinyin-text-click">zh</span><span class="bopomofo-text">ㄓ</span><span class="speaker-icon">🔊</span></div>
-            <div class="pinyin-card-click" onclick="speakClick('chī')"><span class="pinyin-text-click">ch</span><span class="bopomofo-text">ㄔ</span><span class="speaker-icon">🔊</span></div>
+            <div class="pinyin-card-click" onclick="speakClick('ㄍ')"><span class="pinyin-text-click">g</span><span class="bopomofo-text">ㄍ</span><span class="speaker-icon">🔊</span></div>
+            <div class="pinyin-card-click" onclick="speakClick('ㄎ')"><span class="pinyin-text-click">k</span><span class="bopomofo-text">ㄎ</span><span class="speaker-icon">🔊</span></div>
+            <div class="pinyin-card-click" onclick="speakClick('ㄏ')"><span class="pinyin-text-click">h</span><span class="bopomofo-text">ㄏ</span><span class="speaker-icon">🔊</span></div>
+            <div class="pinyin-card-click" onclick="speakClick('ㄐ')"><span class="pinyin-text-click">j</span><span class="bopomofo-text">ㄐ</span><span class="speaker-icon">🔊</span></div>
+            <div class="pinyin-card-click" onclick="speakClick('ㄑ')"><span class="pinyin-text-click">q</span><span class="bopomofo-text">ㄑ</span><span class="speaker-icon">🔊</span></div>
+            <div class="pinyin-card-click" onclick="speakClick('ㄒ')"><span class="pinyin-text-click">x</span><span class="bopomofo-text">ㄒ</span><span class="speaker-icon">🔊</span></div>
+            <div class="pinyin-card-click" onclick="speakClick('ㄓ')"><span class="pinyin-text-click">zh</span><span class="bopomofo-text">ㄓ</span><span class="speaker-icon">🔊</span></div>
+            <div class="pinyin-card-click" onclick="speakClick('ㄔ')"><span class="pinyin-text-click">ch</span><span class="bopomofo-text">ㄔ</span><span class="speaker-icon">🔊</span></div>
 
-            <div class="pinyin-card-click" onclick="speakClick('shī')"><span class="pinyin-text-click">sh</span><span class="bopomofo-text">ㄕ</span><span class="speaker-icon">🔊</span></div>
-            <div class="pinyin-card-click" onclick="speakClick('rì')"><span class="pinyin-text-click">r</span><span class="bopomofo-text">ㄖ</span><span class="speaker-icon">🔊</span></div> <div class="pinyin-card-click" onclick="speakClick('zī')"><span class="pinyin-text-click">z</span><span class="bopomofo-text">ㄗ</span><span class="speaker-icon">🔊</span></div>
-            <div class="pinyin-card-click" onclick="speakClick('cī')"><span class="pinyin-text-click">c</span><span class="bopomofo-text">ㄘ</span><span class="speaker-icon">🔊</span></div>
-            <div class="pinyin-card-click" onclick="speakClick('sī')"><span class="pinyin-text-click">s</span><span class="bopomofo-text">ㄙ</span><span class="speaker-icon">🔊</span></div>
-            <div class="pinyin-card-click" onclick="speakClick('yī')"><span class="pinyin-text-click">y</span><span class="bopomofo-text">ㄧ</span><span class="speaker-icon">🔊</span></div>
-            <div class="pinyin-card-click" onclick="speakClick('wū')"><span class="pinyin-text-click">w</span><span class="bopomofo-text">ㄨ</span><span class="speaker-icon">🔊</span></div>
+            <div class="pinyin-card-click" onclick="speakClick('ㄕ')"><span class="pinyin-text-click">sh</span><span class="bopomofo-text">ㄕ</span><span class="speaker-icon">🔊</span></div>
+            <div class="pinyin-card-click" onclick="speakClick('ㄖ')"><span class="pinyin-text-click">r</span><span class="bopomofo-text">ㄖ</span><span class="speaker-icon">🔊</span></div>
+            <div class="pinyin-card-click" onclick="speakClick('ㄗ')"><span class="pinyin-text-click">z</span><span class="bopomofo-text">ㄗ</span><span class="speaker-icon">🔊</span></div>
+            <div class="pinyin-card-click" onclick="speakClick('ㄘ')"><span class="pinyin-text-click">c</span><span class="bopomofo-text">ㄘ</span><span class="speaker-icon">🔊</span></div>
+            <div class="pinyin-card-click" onclick="speakClick('ㄙ')"><span class="pinyin-text-click">s</span><span class="bopomofo-text">ㄙ</span><span class="speaker-icon">🔊</span></div>
+            <div class="pinyin-card-click" onclick="speakClick('ㄧ')"><span class="pinyin-text-click">y</span><span class="bopomofo-text">ㄧ</span><span class="speaker-icon">🔊</span></div>
+            <div class="pinyin-card-click" onclick="speakClick('ㄨ')"><span class="pinyin-text-click">w</span><span class="bopomofo-text">ㄨ</span><span class="speaker-icon">🔊</span></div>
         </div>
         
-        <div class="section-title">🎶 整體認讀音節 (特殊音節) - 發音為陰平 (第一聲)</div>
+        <div class="section-title">🎶 整體認讀音節 (特殊音節) - 使用漢字輔助發音 (音色最穩定)</div>
         <div class="card-grid">
-            <div class="pinyin-card-click" onclick="speakClick('zhī')"><span class="pinyin-text-small-click">zhi</span><span class="bopomofo-text">ㄓ</span><span class="speaker-icon">🔊</span></div>
-            <div class="pinyin-card-click" onclick="speakClick('chī')"><span class="pinyin-text-small-click">chi</span><span class="bopomofo-text">ㄔ</span><span class="speaker-icon">🔊</span></div>
-            <div class="pinyin-card-click" onclick="speakClick('shī')"><span class="pinyin-text-small-click">shi</span><span class="bopomofo-text">ㄕ</span><span class="speaker-icon">🔊</span></div>
-            <div class="pinyin-card-click" onclick="speakClick('rī')"><span class="pinyin-text-small-click">ri</span><span class="bopomofo-text">ㄖ</span><span class="speaker-icon">🔊</span></div> <div class="pinyin-card-click" onclick="speakClick('zī')"><span class="pinyin-text-small-click">zi</span><span class="bopomofo-text">ㄗ</span><span class="speaker-icon">🔊</span></div>
-            <div class="pinyin-card-click" onclick="speakClick('cī')"><span class="pinyin-text-small-click">ci</span><span class="bopomofo-text">ㄘ</span><span class="speaker-icon">🔊</span></div>
-            <div class="pinyin-card-click" onclick="speakClick('sī')"><span class="pinyin-text-small-click">si</span><span class="bopomofo-text">ㄙ</span><span class="speaker-icon">🔊</span></div>
+            <div class="pinyin-card-click" onclick="speakClick('織')"><span class="pinyin-text-small-click">zhi</span><span class="bopomofo-text">ㄓ</span><span class="speaker-icon">🔊</span></div>
+            <div class="pinyin-card-click" onclick="speakClick('吃')"><span class="pinyin-text-small-click">chi</span><span class="bopomofo-text">ㄔ</span><span class="speaker-icon">🔊</span></div>
+            <div class="pinyin-card-click" onclick="speakClick('師')"><span class="pinyin-text-small-click">shi</span><span class="bopomofo-text">ㄕ</span><span class="speaker-icon">🔊</span></div>
+            <div class="pinyin-card-click" onclick="speakClick('日')"><span class="pinyin-text-small-click">ri</span><span class="bopomofo-text">ㄖ</span><span class="speaker-icon">🔊</span></div>
+            <div class="pinyin-card-click" onclick="speakClick('資')"><span class="pinyin-text-small-click">zi</span><span class="bopomofo-text">ㄗ</span><span class="speaker-icon">🔊</span></div>
+            <div class="pinyin-card-click" onclick="speakClick('詞')"><span class="pinyin-text-small-click">ci</span><span class="bopomofo-text">ㄘ</span><span class="speaker-icon">🔊</span></div>
+            <div class="pinyin-card-click" onclick="speakClick('思')"><span class="pinyin-text-small-click">si</span><span class="bopomofo-text">ㄙ</span><span class="speaker-icon">🔊</span></div>
             
-            <div class="pinyin-card-click" onclick="speakClick('yī')"><span class="pinyin-text-small-click">yi</span><span class="bopomofo-text">ㄧ</span><span class="speaker-icon">🔊</span></div>
-            <div class="pinyin-card-click" onclick="speakClick('wū')"><span class="pinyin-text-small-click">wu</span><span class="bopomofo-text">ㄨ</span><span class="speaker-icon">🔊</span></div>
-            <div class="pinyin-card-click" onclick="speakClick('yū')"><span class="pinyin-text-small-click">yu</span><span class="bopomofo-text">ㄩ</span><span class="speaker-icon">🔊</span></div> <div class="pinyin-card-click" onclick="speakClick('yē')"><span class="pinyin-text-small-click">ye</span><span class="bopomofo-text">ㄧㄝ</span><span class="speaker-icon">🔊</span></div>
-            <div class="pinyin-card-click" onclick="speakClick('yuē')"><span class="pinyin-text-small-click">yue</span><span class="bopomofo-text">ㄩㄝ</span><span class="speaker-icon">🔊</span></div> <div class="pinyin-card-click" onclick="speakClick('yuān')"><span class="pinyin-text-small-click">yuan</span><span class="bopomofo-text">ㄩㄢ</span><span class="speaker-icon">🔊</span></div>
-            <div class="pinyin-card-click" onclick="speakClick('yīn')"><span class="pinyin-text-small-click">yin</span><span class="bopomofo-text">ㄧㄣ</span><span class="speaker-icon">🔊</span></div>
-            <div class="pinyin-card-click" onclick="speakClick('yūn')"><span class="pinyin-text-small-click">yun</span><span class="bopomofo-text">ㄩㄣ</span><span class="speaker-icon">🔊</span></div>
-            <div class="pinyin-card-click" onclick="speakClick('yīng')"><span class="pinyin-text-small-click">ying</span><span class="bopomofo-text">ㄧㄥ</span><span class="speaker-icon">🔊</span></div>
+            <div class="pinyin-card-click" onclick="speakClick('衣')"><span class="pinyin-text-small-click">yi</span><span class="bopomofo-text">ㄧ</span><span class="speaker-icon">🔊</span></div>
+            <div class="pinyin-card-click" onclick="speakClick('屋')"><span class="pinyin-text-small-click">wu</span><span class="bopomofo-text">ㄨ</span><span class="speaker-icon">🔊</span></div>
+            <div class="pinyin-card-click" onclick="speakClick('魚')"><span class="pinyin-text-small-click">yu</span><span class="bopomofo-text">ㄩ</span><span class="speaker-icon">🔊</span></div>
+            <div class="pinyin-card-click" onclick="speakClick('耶')"><span class="pinyin-text-small-click">ye</span><span class="bopomofo-text">ㄧㄝ</span><span class="speaker-icon">🔊</span></div>
+            <div class="pinyin-card-click" onclick="speakClick('月')"><span class="pinyin-text-small-click">yue</span><span class="bopomofo-text">ㄩㄝ</span><span class="speaker-icon">🔊</span></div>
+            <div class="pinyin-card-click" onclick="speakClick('元')"><span class="pinyin-text-small-click">yuan</span><span class="bopomofo-text">ㄩㄢ</span><span class="speaker-icon">🔊</span></div>
+            <div class="pinyin-card-click" onclick="speakClick('因')"><span class="pinyin-text-small-click">yin</span><span class="bopomofo-text">ㄧㄣ</span><span class="speaker-icon">🔊</span></div>
+            <div class="pinyin-card-click" onclick="speakClick('雲')"><span class="pinyin-text-small-click">yun</span><span class="bopomofo-text">ㄩㄣ</span><span class="speaker-icon">🔊</span></div>
+            <div class="pinyin-card-click" onclick="speakClick('英')"><span class="pinyin-text-small-click">ying</span><span class="bopomofo-text">ㄧㄥ</span><span class="speaker-icon">🔊</span></div>
 
-            <div class="pinyin-card-click" onclick="speakClick('wēn')"><span class="pinyin-text-small-click">wen</span><span class="bopomofo-text">ㄨㄣ</span><span class="speaker-icon">🔊</span></div>
-            <div class="pinyin-card-click" onclick="speakClick('wēng')"><span class="pinyin-text-small-click">weng</span><span class="bopomofo-text">ㄨㄥ</span><span class="speaker-icon">🔊</span></div>
-            <div class="pinyin-card-click" onclick="speakClick('iōng')"><span class="pinyin-text-small-click">iong</span><span class="bopomofo-text">ㄩㄥ</span><span class="speaker-icon">🔊</span></div>
+            <div class="pinyin-card-click" onclick="speakClick('溫')"><span class="pinyin-text-small-click">wen</span><span class="bopomofo-text">ㄨㄣ</span><span class="speaker-icon">🔊</span></div>
+            <div class="pinyin-card-click" onclick="speakClick('翁')"><span class="pinyin-text-small-click">weng</span><span class="bopomofo-text">ㄨㄥ</span><span class="speaker-icon">🔊</span></div>
+            <div class="pinyin-card-click" onclick="speakClick('用')"><span class="pinyin-text-small-click">iong</span><span class="bopomofo-text">ㄩㄥ</span><span class="speaker-icon">🔊</span></div>
         </div>
 
-        <div class="section-title">🎶 韻母 (Yùnmǔ) - 發音為陰平 (第一聲)</div>
+        <div class="section-title">🎶 韻母 (Yùnmǔ) - 單韻母點擊發音注音符號</div>
         <div class="card-grid">
-            <div class="pinyin-card-click" onclick="speakClick('ā')"><span class="pinyin-text-click">a</span><span class="bopomofo-text">ㄚ</span><span class="speaker-icon">🔊</span></div>
-            <div class="pinyin-card-click" onclick="speakClick('ō')"><span class="pinyin-text-click">o</span><span class="bopomofo-text">ㄛ</span><span class="speaker-icon">🔊</span></div>
-            <div class="pinyin-card-click" onclick="speakClick('ē')"><span class="pinyin-text-click">e</span><span class="bopomofo-text">ㄜ</span><span class="speaker-icon">🔊</span></div>
-            <div class="pinyin-card-click" onclick="speakClick('ī')"><span class="pinyin-text-click">i</span><span class="bopomofo-text">ㄧ</span><span class="speaker-icon">🔊</span></div>
-            <div class="pinyin-card-click" onclick="speakClick('ū')"><span class="pinyin-text-click">u</span><span class="bopomofo-text">ㄨ</span><span class="speaker-icon">🔊</span></div>
-            <div class="pinyin-card-click" onclick="speakClick('ǖ')"><span class="pinyin-text-click">ü</span><span class="bopomofo-text">ㄩ</span><span class="speaker-icon">🔊</span></div>
+            <div class="pinyin-card-click" onclick="speakClick('ㄚ')"><span class="pinyin-text-click">a</span><span class="bopomofo-text">ㄚ</span><span class="speaker-icon">🔊</span></div>
+            <div class="pinyin-card-click" onclick="speakClick('ㄛ')"><span class="pinyin-text-click">o</span><span class="bopomofo-text">ㄛ</span><span class="speaker-icon">🔊</span></div>
+            <div class="pinyin-card-click" onclick="speakClick('ㄜ')"><span class="pinyin-text-click">e</span><span class="bopomofo-text">ㄜ</span><span class="speaker-icon">🔊</span></div>
+            <div class="pinyin-card-click" onclick="speakClick('ㄧ')"><span class="pinyin-text-click">i</span><span class="bopomofo-text">ㄧ</span><span class="speaker-icon">🔊</span></div>
+            <div class="pinyin-card-click" onclick="speakClick('ㄨ')"><span class="pinyin-text-click">u</span><span class="bopomofo-text">ㄨ</span><span class="speaker-icon">🔊</span></div>
+            <div class="pinyin-card-click" onclick="speakClick('ㄩ')"><span class="pinyin-text-click">ü</span><span class="bopomofo-text">ㄩ</span><span class="speaker-icon">🔊</span></div>
 
-            <div class="pinyin-card-click" onclick="speakClick('āi')"><span class="pinyin-text-small-click">ai</span><span class="bopomofo-text">ㄞ</span><span class="speaker-icon">🔊</span></div>
-            <div class="pinyin-card-click" onclick="speakClick('ēi')"><span class="pinyin-text-small-click">ei</span><span class="bopomofo-text">ㄟ</span><span class="speaker-icon">🔊</span></div>
-            <div class="pinyin-card-click" onclick="speakClick('āo')"><span class="pinyin-text-small-click">ao</span><span class="bopomofo-text">ㄠ</span><span class="speaker-icon">🔊</span></div>
-            <div class="pinyin-card-click" onclick="speakClick('ōu')"><span class="pinyin-text-small-click">ou</span><span class="bopomofo-text">ㄡ</span><span class="speaker-icon">🔊</span></div>
-            <div class="pinyin-card-click" onclick="speakClick('ān')"><span class="pinyin-text-small-click">an</span><span class="bopomofo-text">ㄢ</span><span class="speaker-icon">🔊</span></div>
-            <div class="pinyin-card-click" onclick="speakClick('ēn')"><span class="pinyin-text-small-click">en</span><span class="bopomofo-text">ㄣ</span><span class="speaker-icon">🔊</span></div>
-            <div class="pinyin-card-click" onclick="speakClick('āng')"><span class="pinyin-text-small-click">ang</span><span class="bopomofo-text">ㄤ</span><span class="speaker-icon">🔊</span></div>
-            <div class="pinyin-card-click" onclick="speakClick('ēng')"><span class="pinyin-text-small-click">eng</span><span class="bopomofo-text">ㄥ</span><span class="speaker-icon">🔊</span></div>
+            <div class="pinyin-card-click" onclick="speakClick('埃')"><span class="pinyin-text-small-click">ai</span><span class="bopomofo-text">ㄞ</span><span class="speaker-icon">🔊</span></div>
+            <div class="pinyin-card-click" onclick="speakClick('飛')"><span class="pinyin-text-small-click">ei</span><span class="bopomofo-text">ㄟ</span><span class="speaker-icon">🔊</span></div>
+            <div class="pinyin-card-click" onclick="speakClick('熬')"><span class="pinyin-text-small-click">ao</span><span class="bopomofo-text">ㄠ</span><span class="speaker-icon">🔊</span></div>
+            <div class="pinyin-card-click" onclick="speakClick('鷗')"><span class="pinyin-text-small-click">ou</span><span class="bopomofo-text">ㄡ</span><span class="speaker-icon">🔊</span></div>
+            <div class="pinyin-card-click" onclick="speakClick('安')"><span class="pinyin-text-small-click">an</span><span class="bopomofo-text">ㄢ</span><span class="speaker-icon">🔊</span></div>
+            <div class="pinyin-card-click" onclick="speakClick('恩')"><span class="pinyin-text-small-click">en</span><span class="bopomofo-text">ㄣ</span><span class="speaker-icon">🔊</span></div>
+            <div class="pinyin-card-click" onclick="speakClick('昂')"><span class="pinyin-text-small-click">ang</span><span class="bopomofo-text">ㄤ</span><span class="speaker-icon">🔊</span></div>
+            <div class="pinyin-card-click" onclick="speakClick('eng')"><span class="pinyin-text-small-click">eng</span><span class="bopomofo-text">ㄥ</span><span class="speaker-icon">🔊</span></div> 
 
-            <div class="pinyin-card-click" onclick="speakClick('iā')"><span class="pinyin-text-small-click">ia</span><span class="bopomofo-text">ㄧㄚ</span><span class="speaker-icon">🔊</span></div>
-            <div class="pinyin-card-click" onclick="speakClick('iē')"><span class="pinyin-text-small-click">ie</span><span class="bopomofo-text">ㄧㄝ</span><span class="speaker-icon">🔊</span></div>
-            <div class="pinyin-card-click" onclick="speakClick('iōu')"><span class="pinyin-text-small-click">iou (iu)</span><span class="bopomofo-text">ㄧㄡ</span><span class="speaker-icon">🔊</span></div>
-            <div class="pinyin-card-click" onclick="speakClick('iāo')"><span class="pinyin-text-small-click">iao</span><span class="bopomofo-text">ㄧㄠ</span><span class="speaker-icon">🔊</span></div>
-            <div class="pinyin-card-click" onclick="speakClick('iān')"><span class="pinyin-text-small-click">ian</span><span class="bopomofo-text">ㄧㄢ</span><span class="speaker-icon">🔊</span></div>
-            <div class="pinyin-card-click" onclick="speakClick('īn')"><span class="pinyin-text-small-click">in</span><span class="bopomofo-text">ㄧㄣ</span><span class="speaker-icon">🔊</span></div>
-            <div class="pinyin-card-click" onclick="speakClick('iāng')"><span class="pinyin-text-small-click">iang</span><span class="bopomofo-text">ㄧㄤ</span><span class="speaker-icon">🔊</span></div>
-            <div class="pinyin-card-click" onclick="speakClick('īng')"><span class="pinyin-text-small-click">ing</span><span class="bopomofo-text">ㄧㄥ</span><span class="speaker-icon">🔊</span></div>
+            <div class="pinyin-card-click" onclick="speakClick('呀')"><span class="pinyin-text-small-click">ia</span><span class="bopomofo-text">ㄧㄚ</span><span class="speaker-icon">🔊</span></div>
+            <div class="pinyin-card-click" onclick="speakClick('耶')"><span class="pinyin-text-small-click">ie</span><span class="bopomofo-text">ㄧㄝ</span><span class="speaker-icon">🔊</span></div>
+            <div class="pinyin-card-click" onclick="speakClick('優')"><span class="pinyin-text-small-click">iou (iu)</span><span class="bopomofo-text">ㄧㄡ</span><span class="speaker-icon">🔊</span></div>
+            <div class="pinyin-card-click" onclick="speakClick('腰')"><span class="pinyin-text-small-click">iao</span><span class="bopomofo-text">ㄧㄠ</span><span class="speaker-icon">🔊</span></div>
+            <div class="pinyin-card-click" onclick="speakClick('煙')"><span class="pinyin-text-small-click">ian</span><span class="bopomofo-text">ㄧㄢ</span><span class="speaker-icon">🔊</span></div>
+            <div class="pinyin-card-click" onclick="speakClick('因')"><span class="pinyin-text-small-click">in</span><span class="bopomofo-text">ㄧㄣ</span><span class="speaker-icon">🔊</span></div>
+            <div class="pinyin-card-click" onclick="speakClick('央')"><span class="pinyin-text-small-click">iang</span><span class="bopomofo-text">ㄧㄤ</span><span class="speaker-icon">🔊</span></div>
+            <div class="pinyin-card-click" onclick="speakClick('英')"><span class="pinyin-text-small-click">ing</span><span class="bopomofo-text">ㄧㄥ</span><span class="speaker-icon">🔊</span></div>
+
+            <div class="pinyin-card-click" onclick="speakClick('窩')"><span class="pinyin-text-small-click">uo</span><span class="bopomofo-text">ㄛ</span><span class="speaker-icon">🔊</span></div>
+            <div class="pinyin-card-click" onclick="speakClick('蛙')"><span class="pinyin-text-small-click">ua</span><span class="bopomofo-text">ㄨㄚ</span><span class="speaker-icon">🔊</span></div>
+            <div class="pinyin-card-click" onclick="speakClick('歪')"><span class="pinyin-text-small-click">uai</span><span class="bopomofo-text">ㄨㄞ</span><span class="speaker-icon">🔊</span></div>
+            <div class="pinyin-card-click" onclick="speakClick('威')"><span class="pinyin-text-small-click">uei (ui)</span><span class="bopomofo-text">ㄨㄟ</span><span class="speaker-icon">🔊</span></div>
+            <div class="pinyin-card-click" onclick="speakClick('彎')"><span class="pinyin-text-small-click">uan</span><span class="bopomofo-text">ㄨㄢ</span><span class="speaker-icon">🔊</span></div>
+            <div class="pinyin-card-click" onclick="speakClick('溫')"><span class="pinyin-text-small-click">uen (un)</span><span class="bopomofo-text">ㄨㄣ</span><span class="speaker-icon">🔊</span></div>
+            <div class="pinyin-card-click" onclick="speakClick('汪')"><span class="pinyin-text-small-click">uang</span><span class="bopomofo-text">ㄨㄤ</span><span class="speaker-icon">🔊</span></div>
             
-            <div class="pinyin-card-click" onclick="speakClick('uō')"><span class="pinyin-text-small-click">uo</span><span class="bopomofo-text">ㄛ</span><span class="speaker-icon">🔊</span></div>
-            <div class="pinyin-card-click" onclick="speakClick('uā')"><span class="pinyin-text-small-click">ua</span><span class="bopomofo-text">ㄨㄚ</span><span class="speaker-icon">🔊</span></div>
-            <div class="pinyin-card-click" onclick="speakClick('uāi')"><span class="pinyin-text-small-click">uai</span><span class="bopomofo-text">ㄨㄞ</span><span class="speaker-icon">🔊</span></div>
-            <div class="pinyin-card-click" onclick="speakClick('uēi')"><span class="pinyin-text-small-click">uei (ui)</span><span class="bopomofo-text">ㄨㄟ</span><span class="speaker-icon">🔊</span></div>
-            <div class="pinyin-card-click" onclick="speakClick('uān')"><span class="pinyin-text-small-click">uan</span><span class="bopomofo-text">ㄨㄢ</span><span class="speaker-icon">🔊</span></div>
-            <div class="pinyin-card-click" onclick="speakClick('uēn')"><span class="pinyin-text-small-click">uen (un)</span><span class="bopomofo-text">ㄨㄣ</span><span class="speaker-icon">🔊</span></div>
-            <div class="pinyin-card-click" onclick="speakClick('uāng')"><span class="pinyin-text-small-click">uang</span><span class="bopomofo-text">ㄨㄤ</span><span class="speaker-icon">🔊</span></div>
-            
-            <div class="pinyin-card-click" onclick="speakClick('üē')"><span class="pinyin-text-small-click">üe</span><span class="bopomofo-text">ㄩㄝ</span><span class="speaker-icon">🔊</span></div>
-            <div class="pinyin-card-click" onclick="speakClick('üān')"><span class="pinyin-text-small-click">üan</span><span class="bopomofo-text">ㄩㄢ</span><span class="speaker-icon">🔊</span></div>
-            <div class="pinyin-card-click" onclick="speakClick('ūn')"><span class="pinyin-text-small-click">ün</span><span class="bopomofo-text">ㄩㄣ</span><span class="speaker-icon">🔊</span></div>
-            <div class="pinyin-card-click" onclick="speakClick('iōng')"><span class="pinyin-text-small-click">iong</span><span class="bopomofo-text">ㄩㄥ</span><span class="speaker-icon">🔊</span></div>
+            <div class="pinyin-card-click" onclick="speakClick('約')"><span class="pinyin-text-small-click">üe</span><span class="bopomofo-text">ㄩㄝ</span><span class="speaker-icon">🔊</span></div>
+            <div class="pinyin-card-click" onclick="speakClick('淵')"><span class="pinyin-text-small-click">üan</span><span class="bopomofo-text">ㄩㄢ</span><span class="speaker-icon">🔊</span></div>
+            <div class="pinyin-card-click" onclick="speakClick('暈')"><span class="pinyin-text-small-click">ün</span><span class="bopomofo-text">ㄩㄣ</span><span class="speaker-icon">🔊</span></div>
+            <div class="pinyin-card-click" onclick="speakClick('用')"><span class="pinyin-text-small-click">iong</span><span class="bopomofo-text">ㄩㄥ</span><span class="speaker-icon">🔊</span></div>
         </div>
-
-
     </div>
 
     <script>
         const synth = window.speechSynthesis;
         
         /**
-         * 讀出指定的文字 (帶聲調的拼音字串)，強制 TTS 按照聲調發音。
-         * @param {string} textToSpeak 要發音的文字 (帶聲調的拼音字串)
+         * 讀出指定的文字 (漢字或注音)，穩定發音
+         * @param {string} textToSpeak 要發音的文字 (單個漢字、注音符號或拼音字串)
          */
         function speakCore(textToSpeak) {
             if (!synth) {
@@ -216,27 +219,32 @@
                 return;
             }
 
-            synth.cancel();
+            synth.cancel(); // 停止任何正在播放的語音
 
             const utterance = new SpeechSynthesisUtterance(textToSpeak);
             
-            // 使用 zh-CN 語音
+            // 設定語言為中文普通話/國語
             utterance.lang = 'zh-CN'; 
-            utterance.rate = 0.8;
+            utterance.rate = 0.8; // 稍慢一些
 
             synth.speak(utterance);
         }
 
         // 點擊事件調用核心發音
         function speakClick(textToSpeak) {
-            speakCore(textToSpeak);
+             // 處理 eng 的特殊發音 (用帶聲調拼音最準確)
+            if (textToSpeak === 'eng') {
+                 speakCore('ēng'); 
+            } else {
+                 speakCore(textToSpeak);
+            }
         }
 
         // 頁面載入後確認語音服務狀態
         window.onload = function() {
              if (synth && synth.onvoiceschanged !== undefined) {
                 synth.onvoiceschanged = function() {
-                    console.log("語音服務已載入。發音已準備就緒 (使用帶陰平聲調的拼音)。");
+                    console.log("語音服務已載入。發音已準備就緒 (使用注音符號優先輔助)。");
                 };
             }
         };
