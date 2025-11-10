@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<!-- 加在 <head> 區域 -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#1e1e1e">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>韻母輪播 - 靠右居中黑底版</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #121212; /* 全黑背景 */
+      font-family: "Microsoft JhengHei", "PingFang TC", "Noto Sans CJK TC", sans-serif;
+      display: flex;
+      justify-content: flex-end; /* 容器靠右 */
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+    #yunmu-container {
+      width: 400px;
+      padding: 30px 25px;
+      background: #1e1e1e; /* 深灰容器 */
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+      text-align: center; /* 容器內文字居中 */
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      color: white;
+    }
+    .category {
+      font-size: 24px;
+      color: #3498db; /* 藍色 */
+      font-weight: bold;
+      margin: 0;
+    }
+    .yunmu {
+      font-size: 80px;
+      color: #e74c3c; /* 紅色 */
+      font-family: monospace;
+      margin: 10px 0;
+      line-height: 1;
+    }
+    .example {
+      font-size: 50px;
+      color: #2ecc71; /* 綠色 */
+      margin: 5px 0;
+    }
+    .zhuyin {
+      font-size: 40px;
+      color: #9b59b6; /* 紫色 */
+      letter-spacing: 5px;
+      margin: 5px 0;
+    }
+    .progress {
+      font-size: 16px;
+      color: #bdc3c7; /* 灰白 */
+      margin: 10px 0 0;
+    }
+    .timer-bar {
+      width: 100%;
+      height: 6px;
+      background: #34495e; /* 深藍灰底 */
+      border-radius: 3px;
+      margin-top: 10px;
+      overflow: hidden;
+    }
+    #timer-progress {
+      height: 100%;
+      width: 0%;
+      background: #2ecc71; /* 亮綠色 */
+      transition: width 1s linear;
+    }
+    .controls {
+      display: flex;
+      gap: 8px;
+      margin-top: 15px;
+      width: 100%;
+      justify-content: space-between;
+    }
+    button {
+      padding: 10px 15px;
+      font-size: 14px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      color: white;
+      transition: transform 0.2s, opacity 0.2s;
+    }
+    button:hover {
+      transform: scale(1.05);
+      opacity: 0.95;
+    }
+    #prevBtn {
+      background: #3498db;
+    }
+    #pauseBtn {
+      background: #e74c3c;
+    }
+    #nextBtn {
+      background: #2ecc71;
+    }
+  </style>
+</head>
+<body>
+  <div id="yunmu-container">
+    <div class="category" id="category">載入中…</div>
+    <div class="yunmu" id="yunmu">—</div>
+    <div class="example" id="example">—</div>
+    <div class="zhuyin" id="zhuyin">—</div>
+    <div class="progress" id="progress">第 0 / 39 個</div>
+    <div class="timer-bar">
+      <div id="timer-progress"></div>
+    </div>
+    <div class="controls">
+      <button id="prevBtn">◀ 上一個</button>
+      <button id="pauseBtn">⏸ 暫停</button>
+      <button id="nextBtn">下一個 ▶</button>
+    </div>
+  </div>
+
+  <script>
+    // 所有韻母資料（共39個）
+    const yunmuList = [
+      // 單韻母
+      { yunmu: 'a', example: '啊', zhuyin: 'ㄚ', category: '單韻母' },
+      { yunmu: 'o', example: '喔', zhuyin: 'ㄛ', category: '單韻母' },
+      { yunmu: 'e', example: '鵝', zhuyin: 'ㄜ', category: '單韻母' },
+      { yunmu: 'i', example: '衣', zhuyin: 'ㄧ', category: '單韻母' },
+      { yunmu: 'u', example: '烏', zhuyin: 'ㄨ', category: '單韻母' },
+      { yunmu: 'ü', example: '魚', zhuyin: 'ㄩ', category: '單韻母' },
+      // 複韻母
+      { yunmu: 'ai', example: '愛', zhuyin: 'ㄞ', category: '複韻母' },
+      { yunmu: 'ei', example: '肥', zhuyin: 'ㄟ', category: '複韻母' },
+      { yunmu: 'ao', example: '奧', zhuyin: 'ㄠ', category: '複韻母' },
+      { yunmu: 'ou', example: '歐', zhuyin: 'ㄡ', category: '複韻母' },
+      { yunmu: 'ia', example: '呀', zhuyin: 'ㄧㄚ', category: '複韻母' },
+      { yunmu: 'ie', example: '耶', zhuyin: 'ㄧㄝ', category: '複韻母' },
+      { yunmu: 'ua', example: '哇', zhuyin: 'ㄨㄚ', category: '複韻母' },
+      { yunmu: 'uo', example: '渦', zhuyin: 'ㄨㄛ', category: '複韻母' },
+      { yunmu: 'üe', example: '月', zhuyin: 'ㄩㄝ', category: '複韻母' },
+      // 前鼻韻母
+      { yunmu: 'an', example: '安', zhuyin: 'ㄢ', category: '前鼻韻母' },
+      { yunmu: 'en', example: '恩', zhuyin: 'ㄣ', category: '前鼻韻母' },
+      { yunmu: 'in', example: '因', zhuyin: 'ㄧㄣ', category: '前鼻韻母' },
+      { yunmu: 'un', example: '溫', zhuyin: 'ㄨㄣ', category: '前鼻韻母' },
+      { yunmu: 'ün', example: '雲', zhuyin: 'ㄩㄣ', category: '前鼻韻母' },
+      { yunmu: 'ian', example: '煙', zhuyin: 'ㄧㄢ', category: '前鼻韻母' },
+      { yunmu: 'uan', example: '弯', zhuyin: 'ㄨㄢ', category: '前鼻韻母' },
+      { yunmu: 'üan', example: '冤', zhuyin: 'ㄩㄢ', category: '前鼻韻母' },
+      // 後鼻韻母
+      { yunmu: 'ang', example: '昂', zhuyin: 'ㄤ', category: '後鼻韻母' },
+      { yunmu: 'eng', example: '熊', zhuyin: 'ㄥ', category: '後鼻韻母' },
+      { yunmu: 'ing', example: '英', zhuyin: 'ㄧㄥ', category: '後鼻韻母' },
+      { yunmu: 'ong', example: '轟', zhuyin: 'ㄨㄥ', category: '後鼻韻母' },
+      { yunmu: 'iang', example: '央', zhuyin: 'ㄧㄤ', category: '後鼻韻母' },
+      { yunmu: 'uang', example: '汪', zhuyin: 'ㄨㄤ', category: '後鼻韻母' },
+      { yunmu: 'iong', example: '雍', zhuyin: 'ㄩㄥ', category: '後鼻韻母' },
+      { yunmu: 'ueng', example: '翁', zhuyin: 'ㄨㄥ', category: '後鼻韻母' },
+      // 兒化韻
+      { yunmu: 'er', example: '兒', zhuyin: 'ㄦ', category: '兒化韻' }
+    ];
+
+    let currentIndex = 0;
+    let autoPlay = true;
+    const intervalTime = 10000; // 10 秒
+    let timer;
+
+    const categoryEl = document.getElementById('category');
+    const yunmuEl = document.getElementById('yunmu');
+    const exampleEl = document.getElementById('example');
+    const zhuyinEl = document.getElementById('zhuyin');
+    const progressEl = document.getElementById('progress');
+    const timerProgress = document.getElementById('timer-progress');
+
+    function updateDisplay(index) {
+      const item = yunmuList[index];
+      categoryEl.textContent = item.category;
+      yunmuEl.textContent = item.yunmu;
+      exampleEl.textContent = item.example;
+      zhuyinEl.textContent = item.zhuyin;
+      progressEl.textContent = `第 ${index + 1} / ${yunmuList.length} 個`;
+
+      // 重置進度條
+      timerProgress.style.width = '0%';
+      setTimeout(() => {
+        if (autoPlay) {
+          timerProgress.style.width = '100%';
+        }
+      }, 100);
+    }
+
+    function startTimer() {
+      clearTimeout(timer);
+      if (autoPlay) {
+        timer = setTimeout(() => {
+          nextYunmu();
+        }, intervalTime);
+      }
+    }
+
+    function nextYunmu() {
+      currentIndex = (currentIndex + 1) % yunmuList.length;
+      updateDisplay(currentIndex);
+      startTimer();
+    }
+
+    function prevYunmu() {
+      currentIndex = (currentIndex - 1 + yunmuList.length) % yunmuList.length;
+      updateDisplay(currentIndex);
+      startTimer(); // 重新計時
+    }
+
+    function togglePlayPause() {
+      autoPlay = !autoPlay;
+      const pauseBtn = document.getElementById('pauseBtn');
+      pauseBtn.textContent = autoPlay ? '⏸ 暫停' : '▶ 播放';
+      if (autoPlay) {
+        startTimer();
+        timerProgress.style.width = '100%';
+      } else {
+        clearTimeout(timer);
+        timerProgress.style.width = '0%';
+      }
+    }
+
+    // 事件綁定
+    document.getElementById('nextBtn').addEventListener('click', () => {
+      nextYunmu();
+    });
+
+    document.getElementById('prevBtn').addEventListener('click', () => {
+      prevYunmu();
+    });
+
+    document.getElementById('pauseBtn').addEventListener('click', togglePlayPause);
+
+    // 鍵盤控制
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') nextYunmu();
+      if (e.key === 'ArrowLeft') prevYunmu();
+      if (e.key === ' ') {
+        e.preventDefault();
+        togglePlayPause();
+      }
+    });
+
+    // 初始化
+    updateDisplay(currentIndex);
+    startTimer();
+  </script>
+</body>
+</html>
