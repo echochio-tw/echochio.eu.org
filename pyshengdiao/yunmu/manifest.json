@@ -2,7 +2,7 @@
   "name": "韻母輪播學習",
   "short_name": "韻母",
   "description": "漢語拼音韻母自動輪播，每10秒切換，適合教學與複習。",
-  "start_url": "./yunmu-right-center-black.html",
+  "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#121212",
   "theme_color": "#1e1e1e",
