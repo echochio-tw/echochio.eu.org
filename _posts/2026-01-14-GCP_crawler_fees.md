@@ -4,141 +4,139 @@ title: GCP 爬蟲抓費用
 date: 2026-01-14
 tags: GCP
 ---
-google 登入的紀錄。要改成自己去生成
-```
-cd D:
-mkdir chrome_temp 
-"C:\Program Files\Google\Chrome\Application\chrome.exe" "https://console.cloud.google.com/"  --user-data-dir="D:\chrome_temp"
-```
+GCP 爬蟲抓費用，其中 D:\chrome_temp 有google 登入紀錄 (可以加 time.sleep)
 
-GCP 爬蟲抓費用，其中 D:\chrome_temp 有google 登入紀錄
+(google 登入的紀錄。要改成自己去生成)
 ```
+import sys
 import time
 import re
+import requests  # 新增：用於發送 API 請求
 from playwright.sync_api import Playwright, sync_playwright
 
 # ================= 設定區 =================
-USER_DATA_DIR = r"D:\chrome_temp"
-TARGET_URL = "https://console.cloud.google.com/billing/overview?project=ez1022"
+USER_DATA_DIR = r"C:\chrome_temp"
+TARGET_URL = "https://console.cloud.google.com/billing/overview?project=atomi"
+PROJECT_ID = "atomic-elixir-435115-h0"
+
+# --- Telegram Bot 設定 ---
+TELEGRAM_BOT_TOKEN = "610418723:XXXXXXXXXXXXXRDwM8x7s"
+TELEGRAM_CHAT_ID = "-358XXXX"  # 房間 ID
 # =========================================
+def log_step(msg):
+    with open(r"C:\python\debug_log.txt", "a", encoding="utf-8") as f:
+        f.write(f"{time.strftime('%Y-%m-%d %H:%M:%S')} - {msg}\n")
+
+def send_telegram_photo(photo_path, caption=""):
+    """使用 Bot API 發送照片到 Telegram"""
+    url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendPhoto"
+    try:
+        with open(photo_path, "rb") as photo:
+            payload = {
+                "chat_id": TELEGRAM_CHAT_ID,
+                "caption": caption
+            }
+            files = {
+                "photo": photo
+            }
+            response = requests.post(url, data=payload, files=files)
+            if response.status_code == 200:
+                log_step("✅ 截圖已成功發送到 Telegram")
+            else:
+                log_step(f"❌ 發送失敗，錯誤碼：{response.status_code}, 內容：{response.text}")
+    except Exception as e:
+        log_step(f"⚠️ 發送過程中發生異常: {e}")
 
 def run(playwright: Playwright) -> None:
-    print("🚀 啟動 Chrome...")
-    # 這裡加入 args 避開一些偵測與加速
-    context = playwright.chromium.launch_persistent_context(
-        user_data_dir=USER_DATA_DIR,
-        channel="chrome",
-        headless=False,
-        no_viewport=True # 使用視窗原始大小
-    )
+    log_step("🚀 嘗試啟動 Chrome (Persistent Context)...")
+    try:
+        context = playwright.chromium.launch_persistent_context(
+            user_data_dir=USER_DATA_DIR,
+            headless=True, # 排程環境建議headless
+            # headless=False,　# 如果要認證google 可以加手動輸入
+            handle_sigint=False, # 排程環境建議關閉信號處理
+            handle_sigterm=False,
+            handle_sighup=False,
+            args=[
+                "--disable-blink-features=AutomationControlled",
+                "--no-sandbox",          # 必須：Session 0 安全沙箱常導致掛起
+                "--disable-gpu",          # 必須：後台環境無顯卡加速
+                "--disable-dev-shm-usage", # 必須：防止資源限制導致崩潰
+                "--single-process"       # 可選：在受限環境中有時更穩定
+            ],
+            ignore_default_args=["--enable-automation"],
+            viewport={'width': 1920, 'height': 1080},
+            #no_viewport=True
+        )
+        log_step("✅ Chrome 啟動成功")
+　　　　# time.sleep(600) # 如果要認證google 可以加手動輸入　
+    except Exception as e:
+        log_step(f"❌ Chrome 啟動失敗: {e}")
+        return
     
     page = context.new_page()
+    screenshot_path = r"C:\python\billing_exact_check.png"
     
     try:
-        print(f"🔗 前往頁面: {TARGET_URL}")
+        log_step(f"🔗 前往頁面: {TARGET_URL}")
         page.goto(TARGET_URL)
-
-        # 1. 執行你錄製的第一個動作：點擊主頁面的「前往總覽」
-        print("🖱️ 動作 1: 點擊主頁面『前往總覽』...")
+        log_step("🖱️ 正在導航至總覽頁面...")
+# 嘗試多種方式點擊，並加入顯式等待
         try:
-            page.get_by_role("link", name="前往「總覽」頁面").wait_for(state="visible", timeout=10000)
-            page.get_by_role("link", name="前往「總覽」頁面").click()
-        except Exception as e:
-            print(f"   跳過動作 1 (可能不存在): {e}")
-
-        # 2. 執行你錄製的第二個動作：點擊 iframe 內的「前往總覽」
-        print("🖱️ 動作 2: 點擊 iframe 內的『前往總覽』...")
-        try:
-            # 這是你錄製到的關鍵定位：#google-feedback-rif
-            target_frame = page.locator("#google-feedback-rif").content_frame
-            target_frame.get_by_role("link", name="前往「總覽」頁面").wait_for(state="visible", timeout=5000)
-            target_frame.get_by_role("link", name="前往「總覽」頁面").click()
-            print("   ✅ iframe 點擊成功")
-        except Exception as e:
-            print(f"   跳過動作 2 (可能不存在): {e}")
-
-        # 3. 關鍵等待：等待頁面網址變動或特定內容出現
-        print("⏳ 等待帳單正式數據載入 (20秒)...")
-        time.sleep(20) 
-
-        # 4. 處理彈窗：點擊「之後提醒我」
-        # 4. 處理彈窗：針對 Angular Mat-Button 的精確點擊
-        print("🔍 正在嘗試精確定位『之後提醒我』按鈕...")
-        try:
-            # 策略 A: 使用 Playwright 的文字定位 (針對 mdc-button__label)
-            # 這種寫法會自動掃描所有層級，包括 shadow DOM
-            remind_btn = page.get_by_role("button", name="之後提醒我")
-            
-            # 策略 B: 如果 A 不夠強，使用屬性選擇器 (針對你提供的 jslog 或 class)
-            if not remind_btn.is_visible():
-                remind_btn = page.locator('button.cm-button:has-text("之後提醒我")')
-
-            # 策略 C: 遍歷所有 Frame (防禦 iframe 隔離)
-            if not remind_btn.is_visible():
-                for frame in page.frames:
-                    target = frame.locator('button:has-text("之後提醒我")')
-                    if target.is_visible():
-                        print(f"   🎯 在 Frame [{frame.name}] 中尋獲按鈕")
-                        remind_btn = target
-                        break
-
-            # 執行點擊
-            if remind_btn.is_visible(timeout=5000):
-                remind_btn.click(force=True) # force=True 確保即使被遮擋也強制觸發
-                print("   ✅ 已成功點擊『之後提醒我』")
-            else:
-                print("   💡 未發現彈窗，可能本次未出現。")
-
-        except Exception as e:
-            print(f"   ⚠️ 點擊失敗，嘗試最後手段 (Esc): {e}")
-            page.keyboard.press("Escape")
-
-        # 5. 抓取費用數據
-# 📊 提取費用數據
-        print("📊 正在提取費用數據...")
-        try:
-            # 1. 增加一點緩衝，確保數字跑完
-            page.wait_for_timeout(3000)
-
-            # 2. 直接找包含 $ 且旁邊有「費用」字眼的區塊
-            # 我們改用 XPath，這在 GCP 這種混亂的頁面通常比 CSS 穩定
-            # 意思是：尋找包含「費用」的元素，並抓取它後面的同級或子級文字
-            cost_locator = page.locator('//div[contains(text(), "費用")]/following-sibling::div').first
-            
-            # 3. 備案：如果上面抓不到，直接抓頁面上所有「看起來像錢」的文字
-            if not cost_locator.is_visible():
-                # 使用正則運算式尋找 $ 開頭的數字 (例如 $593.00)
-                # 使用 r"" (raw string) 解決你看到的 SyntaxWarning
-                cost_locator = page.get_by_text(re.compile(r"\$\d+[\d,.]*")).first
-
-            cost_text = cost_locator.inner_text().strip()
-            
-            if cost_text and "$" in cost_text:
-                print("\n" + "★"*30)
-                print(f"💰 抓取成功！目前費用為: {cost_text}")
-                print("★"*30 + "\n")
-            else:
-                # 終極手段：抓取整個卡片的內容再用正則過濾
-                summary_card = page.locator(".p6n-billing-summary-card-content").inner_text()
-                # 抓取包含 $ 的那一行
-                money_match = re.search(r"\$[\d,.]+", summary_card)
-                if money_match:
-                    print(f"💰 終極手段抓取成功: {money_match.group()}")
+            # 1. 優先嘗試直接點擊文字按鈕 (加上等待)
+            page.wait_for_selector('text="前往「總覽」頁面"', timeout=5000)
+            page.click('text="前往「總覽」頁面"')
+            log_step("   ✅ 直接點擊成功")
+        except:
+            try:
+                # 2. 針對截圖中看到的藍色連結樣式進行定位
+                # 使用 XPath 尋找包含特定文字的 <a> 標籤
+                target = page.locator('a:has-text("前往「總覽」頁面")')
+                if target.count() > 0:
+                    target.first.click()
+                    log_step("   ✅ 透過連結定位點擊成功")
                 else:
-                    print(f"❌ 抓到的內容不對 ({cost_text})，請手動確認畫面。")
+                    # 3. 如果在 iframe 內，強制對所有 frame 進行搜索
+                    clicked = False
+                    for frame in page.frames:
+                        btn = frame.locator('text="前往「總覽」頁面"')
+                        if btn.count() > 0:
+                            btn.first.click()
+                            log_step(f"   ✅ 在 iframe [{frame.name}] 中點擊成功")
+                            clicked = True
+                            break
+                    if not clicked:
+                        log_step("   ⚠️ 找不到按鈕，將嘗試直接截圖目前畫面")
+            except Exception as e:
+                log_step(f"   ❌ 點擊發生錯誤: {e}")
+        log_step("⏳ 等待數據載入 (20秒)...")
+        time.sleep(20)
 
-        except Exception as e:
-            print(f"❌ 提取發生錯誤: {e}")
+        try:
+            remind_btn = page.locator('button:has-text("之後提醒我")')
+            if remind_btn.is_visible():
+                remind_btn.click()
+        except:
+            pass
 
-    except Exception as e:
-        print(f"❌ 程式執行出錯: {e}")
-    
+        # 截圖
+        page.screenshot(path=screenshot_path, full_page=True)
+        log_step(f"📸 截圖已儲存: {screenshot_path}")
+
+        # --- 新增：發送到 Telegram ---
+        send_telegram_photo(screenshot_path, caption=f"📊 GCP 帳單截圖\nProject: {PROJECT_ID}")
+
     finally:
-        time.sleep(60)
-        print("關閉瀏覽器...")
+        log_step("關閉瀏覽器...")
         context.close()
 
 if __name__ == "__main__":
-    with sync_playwright() as playwright:
-        run(playwright)
+    try:
+        with sync_playwright() as playwright:
+            run(playwright)
+        log_step("🏁 腳本完全結束")
+        sys.exit(0)  # 確保回傳結束信號給工作排程器
+    except Exception as e:
+        log_step(f"❌ 主程式異常: {e}")
+        sys.exit(1)
 ```
