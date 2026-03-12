@@ -34,7 +34,6 @@ def run_command(model):
         finally:
             process.wait()  # 确保进程关闭
         print("Looping again...")
-
 if __name__ == '__main__':
 ```
     run_command(sys.argv[1])
