@@ -1,7 +1,7 @@
 ---
 layout: post
 title: ollama pull 慢
-date: 2016-03-12
+date: 2026-03-12
 tags: ollama
 ---
 
