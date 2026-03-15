@@ -6,9 +6,11 @@ whereami: index
 ### About the site by github io jekyll
 記錄一些資訊 .... 將 http://echochio.pixnet.net/blog 一些來紀錄到此
 
-做技術，也做管理 聯繫我： [<span style="color:#000000">echochio@echochio.ml</span>]
+做技術 聯繫我： [<span style="color:#000000">chio@echochio.dpdns.org</span>]
 
 好記性不如爛筆記，曾經使用和學習過很多技術，但在長時間不使用後，很多東西就忘掉了，來記錄一些筆記。
+
+現在 用 git 架設的網站，及git 紀錄文件 ，也用 cloudflare 的轉信，cloudflare 的 tunnel 測設機器
 
 ---
 
