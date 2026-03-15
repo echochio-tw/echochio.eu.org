@@ -10,7 +10,7 @@ whereami: index
 
 好記性不如爛筆記， 我有 30 多年經驗，使用和學習過很多技術，但在長時間不使用後，很多東西就忘掉了，來記錄一些筆記。
 
-現在 用 git 架設的網站，及git 紀錄文件 ，也用 cloudflare 的轉信，cloudflare 的 tunnel 測設機器。
+現在 用 git 架設的網站，及git 紀錄文件 ，也用 cloudflare 的轉信，cloudflare 的 tunnel 測機器。
 
 ---
 
